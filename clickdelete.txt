@@ -1,0 +1,7 @@
+local mouse = game.Players.LocalPlayer:GetMouse()
+
+mouse.Button1Down:Connect(function()
+    if mouse.Target and game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then
+        mouse.Target:Destroy()
+    end
+end)
