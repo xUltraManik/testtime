@@ -1,21 +1,28 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("ChatGPT Hub", "Ocean")
+local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
 
     local Main = Window:NewTab("Admin")
     local MainSection = Main:NewSection("Admin")
 
     MainSection:NewButton("Click delete", "-", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/clickdelete.txt', true))()
-    end
+    end)
 	
 	MainSection:NewButton("Click to walk", "-", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/clicktowalk.txt', true))()
-    end
+    end)
 	
 	MainSection:NewButton("Zoom", "C'ye bas", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/zoom.txt', true))()
-    end
+    end)
 	
 	MainSection:NewButton("Player Teleport", "-", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/playerteleportbeta.txt', true))()
-    end
+    end)
+
+    local Main = Window:NewTab("Admin V2")
+    local MainSection = Main:NewSection("Admin V2")
+
+    MainSection:NewButton("Click delete", "-", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/clickdelete.txt', true))()
+    end)
