@@ -1,0 +1,95 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
+
+    local Main = Window:NewTab("Dungeon Quest")
+    local MainSection = Main:NewSection("Dungeon Quest")
+
+    MainSection:NewButton("Dungeon Quest [NO GUI]", "Bir Dungeon Quest hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xShenkaMan/test/main/dungeonquest.txt', true))()
+    end)
+	
+	
+	local Main = Window:NewTab("Epic Minigames")
+    local MainSection = Main:NewSection("Epic Minigames")
+
+    MainSection:NewButton("Epic Minigames [Onerilen]", "Bir Epic Minigames hilesi. Taptaze.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/SlamminPig/rblxgames/main/Epic%20Minigames/EpicMinigamesGUI'))()
+    end)
+
+    MainSection:NewButton("Epic Minigames [Old]", "Bir Epic Minigames hilesi. Hile eskimis ama calisiyor.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xShenkaMan/test/main/oldepic.txt'))()
+    end)
+	
+	
+    local Main = Window:NewTab("Murder Mystery 2")
+    local MainSection = Main:NewSection("Murder Mystery 2")
+
+    MainSection:NewButton("MM2 Admin Panel", "Bir Murder Mystery 2 hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/MM2%20Admin%20Panel', true))()
+    end)
+
+    MainSection:NewButton("Eclipse Hub [Onerilen]", "Bir Murder Mystery 2 hilesi. Kullanmalisin.", function()
+        local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
+    end)
+
+    MainSection:NewButton("EzScripts", "Bir Murder Mystery 2 hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/TurfuFrogy/EzScripts/main/loader.lua', true))()
+    end)
+
+
+    local Main = Window:NewTab("Pet Simulator X")
+    local MainSection = Main:NewSection("Pet Simulator X")
+
+    MainSection:NewButton("BT Project", "Bir Pet Simulator X hilesi. Anahtar alman gerekir.", function()
+        loadstring(game:HttpGet('https://gitlab.com/Sky2836/test/-/raw/main/Windows'))()
+    end)
+	
+	
+	local Main = Window:NewTab("RoBeats")
+    local MainSection = Main:NewSection("RoBeats")
+
+    MainSection:NewButton("RoBeats [NO GUI][Onerilen]", "Bir RoBeats hilesi. Skor %99'a cikacaktir.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xShenkaMan/test/main/robeats.txt', true))()
+    end)
+
+    MainSection:NewButton("Alpha X", "Bir RoBeats hilesi. Yuksek skor icin sarki hizini dusurun.", function()
+        getgenv().http_request = http_request or request or (http and http.request) or syn.request 
+        repeat until http_request
+        loadstring(http_request({Url="https://cdn.applebee1558.com/alphax/AlphaX.lua",Method="GET"}).Body)()
+    end)
+
+
+    local Main = Window:NewTab("Saber Simulator")
+    local MainSection = Main:NewSection("Saber Simulator")
+
+    MainSection:NewButton("Hades Hub", "Bir Saber Simulator hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/hdzrblx/hub/master/HadesHub.lua', true))()
+    end)
+
+    MainSection:NewButton("Proxima Hub", "Bir Saber Simulator hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/TrixAde/Proxima-Hub/main/Main.lua', true))()
+    end)
+
+    MainSection:NewButton("Ophelia Hub", "Bir Saber Simulator hilesi.", function()
+        loadstring(game:HttpGet('https://www.obscurity.cf/Loader.lua', true))()
+    end)
+
+
+    local Main = Window:NewTab("Tower of Hell")
+    local MainSection = Main:NewSection("Tower of Hell")
+
+    MainSection:NewButton("GHUB FREE", "Bir Tower of Hell hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/2dgeneralspam1/scripts-and-stuff/master/scripts/garfield%20hub', true))()
+    end)
+	
+	MainSection:NewButton("Eclipse Hub", "Bir Tower of Hell hilesi.", function()
+    local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth"c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
+    end)
+	
+    MainSection:NewButton("ADMINUS [Onerilen]", "Bir Tower of Hell hilesi.", function()
+        loadstring(game:HttpGet('https://scripts.luawl.com/16001/AdminusFreeVersion.lua', true))()
+    end)
+	
+    MainSection:NewButton("Test", "Bir Tower of Hell hilesi.", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/zeuise0002/SSSWWW222/main/README.md', true))()
+    end)
