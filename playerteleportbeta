@@ -1,0 +1,30 @@
+-- LocalScript
+local player = game.Players.LocalPlayer
+local gui = player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
+local textBox = gui:WaitForChild("TextBox")
+local button = gui:WaitForChild("TextButton")
+
+button.MouseButton1Click:Connect(function()
+    local playerName = textBox.Text
+    local targetPlayer = game.Players:FindFirstChild(playerName)
+
+    if targetPlayer then
+        local targetHumanoid = targetPlayer.Character and targetPlayer.Character:FindFirstChild("Humanoid")
+        local targetHumanoidRootPart = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+
+        if targetHumanoid and targetHumanoidRootPart then
+            local playerHumanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+
+            if playerHumanoidRootPart then
+                player.Character:SetPrimaryPartCFrame(targetHumanoidRootPart.CFrame * CFrame.new(0, 5, 0))
+                print("Işınlatma işlemi başarılı: " .. playerName)
+            else
+                print("Hata: Oyuncunun HumanoidRootPart öğesi bulunamadı.")
+            end
+        else
+            print("Hata: Hedef oyuncunun Humanoid veya HumanoidRootPart öğeleri bulunamadı.")
+        end
+    else
+        print("Hata: Oyuncu bulunamadı: " .. playerName)
+    end
+end)
