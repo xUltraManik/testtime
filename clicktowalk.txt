@@ -1,0 +1,12 @@
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent then
+        return
+    end
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        local character = game.Players.LocalPlayer.Character
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid:MoveTo(game:GetService("Players").LocalPlayer:GetMouse().Hit.p)
+        end
+    end
+end)
