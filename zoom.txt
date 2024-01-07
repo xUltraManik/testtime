@@ -1,0 +1,32 @@
+-- Define some variables
+local camera = game.Workspace.CurrentCamera
+local zoomed = false
+local zoomLevel = 2
+
+-- Define the function to handle zooming
+local function zoom()
+    -- Toggle zoomed
+    zoomed = not zoomed
+
+    -- Set the camera's field of view based on zoomed
+    if zoomed then
+        camera.FieldOfView = camera.FieldOfView / zoomLevel
+    else
+        camera.FieldOfView = camera.FieldOfView * zoomLevel
+    end
+end
+
+-- Handle the C key being pressed and released
+local userInput = game:GetService("UserInputService")
+local inputConnection
+userInput.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.C then
+        zoom()
+        inputConnection = userInput.InputEnded:Connect(function(input2)
+            if input2.KeyCode == Enum.KeyCode.C then
+                zoom()
+                inputConnection:Disconnect()
+            end
+        end)
+    end
+end)
