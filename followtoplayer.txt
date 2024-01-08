@@ -1,0 +1,39 @@
+-- LocalScript
+
+-- Oyuncu listesini al
+local players = game.Players:GetPlayers()
+
+-- Teleport yapılacak oyuncunun adını belirle
+local targetPlayerName = "HedefOyuncuAdi" -- Hedef oyuncunun adını değiştirin
+
+-- Teleport yapılacak oyuncuyu bul
+local targetPlayer = nil
+for _, player in pairs(players) do
+    if player.Name == targetPlayerName then
+        targetPlayer = player
+        break
+    end
+end
+
+-- Eğer hedef oyuncu bulunamazsa uyarı ver ve scripti durdur
+if not targetPlayer then
+    warn("Hedef oyuncu bulunamadı.")
+    return
+end
+
+-- Oyuncuya tıklanınca çalışacak fonksiyon
+local function teleportToPlayer()
+    -- Karakterin konumu alınıyor
+    local myCharacter = game.Players.LocalPlayer.Character
+    local myHumanoidRootPart = myCharacter:WaitForChild("HumanoidRootPart")
+    
+    -- Hedef oyuncunun karakterinin konumu alınıyor
+    local targetCharacter = targetPlayer.Character
+    local targetHumanoidRootPart = targetCharacter:WaitForChild("HumanoidRootPart")
+    
+    -- Hedef konumuna teleport yapılıyor
+    myHumanoidRootPart.CFrame = CFrame.new(targetHumanoidRootPart.Position)
+end
+
+-- Oyuncuya tıklama eventi ekleniyor
+game.Players.LocalPlayer.PlayerGui.MouseButton1Click:Connect(teleportToPlayer)
