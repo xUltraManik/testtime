@@ -1,0 +1,33 @@
+-- LocalScript
+local player = game.Players.LocalPlayer
+local teleportGui = Instance.new("ScreenGui")
+teleportGui.Name = "TeleportGui"
+teleportGui.Parent = player.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0, 10, 1, -110)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BackgroundTransparency = 0.5
+frame.Parent = teleportGui
+
+local playerTextBox = Instance.new("TextBox")
+playerTextBox.Size = UDim2.new(0, 180, 0, 30)
+playerTextBox.Position = UDim2.new(0.5, -90, 0.1, 0)
+playerTextBox.PlaceholderText = "Oyuncu Adı"
+playerTextBox.Parent = frame
+
+local teleportButton = Instance.new("TextButton")
+teleportButton.Size = UDim2.new(0, 180, 0, 30)
+teleportButton.Position = UDim2.new(0.5, -90, 0.7, -15)
+teleportButton.Text = "Teleport"
+teleportButton.Parent = frame
+
+teleportButton.MouseButton1Click:Connect(function()
+    local targetPlayer = game.Players:FindFirstChild(playerTextBox.Text)
+    if targetPlayer then
+        player.Character:MoveTo(targetPlayer.Character.HumanoidRootPart.Position)
+    else
+        warn("Oyuncu bulunamadı.")
+    end
+end)
