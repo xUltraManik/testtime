@@ -19,6 +19,6 @@ local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/clickdelete.txt', true))()
     end)
 
-    MainSection:NewButton("Follow to Player", "-", function()
+    MainSection:NewButton("Teleport to Player", "-", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/teleporttoplayer.txt', true))()
     end)
