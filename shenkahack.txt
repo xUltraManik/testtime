@@ -20,5 +20,5 @@ local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
     end)
 
     MainSection:NewButton("Follow to Player", "-", function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/followtoplayer.txt', true))()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/teleporttoplayer.txt', true))()
     end)
