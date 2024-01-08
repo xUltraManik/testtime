@@ -1,30 +1,26 @@
 -- LocalScript
+
 local player = game.Players.LocalPlayer
-local gui = player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
-local textBox = gui:WaitForChild("TextBox")
-local button = gui:WaitForChild("TextButton")
+local teleportGui = player.PlayerGui:WaitForChild("TeleportGui") -- "TeleportGui" burada ScreenGui'nin adı olmalı
 
-button.MouseButton1Click:Connect(function()
-    local playerName = textBox.Text
+local playerNameTextBox = teleportGui:WaitForChild("PlayerNameTextBox")
+local teleportButton = teleportGui:WaitForChild("TeleportButton")
+
+teleportButton.MouseButton1Click:Connect(function()
+    local playerName = playerNameTextBox.Text
+
+    -- Işınla işlemi burada gerçekleştirilecek
+    -- Örneğin:
     local targetPlayer = game.Players:FindFirstChild(playerName)
-
+    
     if targetPlayer then
-        local targetHumanoid = targetPlayer.Character and targetPlayer.Character:FindFirstChild("Humanoid")
-        local targetHumanoidRootPart = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-
-        if targetHumanoid and targetHumanoidRootPart then
-            local playerHumanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-
-            if playerHumanoidRootPart then
-                player.Character:SetPrimaryPartCFrame(targetHumanoidRootPart.CFrame * CFrame.new(0, 5, 0))
-                print("Işınlatma işlemi başarılı: " .. playerName)
-            else
-                print("Hata: Oyuncunun HumanoidRootPart öğesi bulunamadı.")
-            end
+        local targetPosition = targetPlayer.Character and targetPlayer.Character:GetPrimaryPartCFrame().p
+        if targetPosition then
+            player.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
         else
-            print("Hata: Hedef oyuncunun Humanoid veya HumanoidRootPart öğeleri bulunamadı.")
+            warn("Hedef oyuncunun konumu bulunamadı.")
         end
     else
-        print("Hata: Oyuncu bulunamadı: " .. playerName)
+        warn("Oyuncu bulunamadı.")
     end
 end)
