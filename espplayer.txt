@@ -1,55 +1,49 @@
--- LocalScript
+-- PlayerLocationScript
 
--- Fonksiyon, bir oyuncunun karakter modelini alır ve onun köşesine bir BillboardGui ekler
-local function createPlayerIndicator(player)
-    local playerIndicator = Instance.new("BillboardGui")
-    playerIndicator.Name = "PlayerIndicator"
-    playerIndicator.AlwaysOnTop = true
-    playerIndicator.Size = UDim2.new(0, 100, 0, 20)
-    playerIndicator.StudsOffset = Vector3.new(0, 3, 0)  -- Konumu ayarlamak için kullanılabilir
+-- İsteğe bağlı: Çizgi rengini ve kalınlığını buradan değiştirebilirsiniz.
+local lineColor = Color3.new(1, 1, 1) -- Beyaz renk
+local lineWidth = 2 -- Çizgi kalınlığı
 
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(1, 0, 1, 0)
-    frame.BackgroundTransparency = 1
-    frame.BorderSizePixel = 0
-
+-- Çizgiyi oluşturan fonksiyon
+local function createLine(player)
     local line = Instance.new("Frame")
-    line.Size = UDim2.new(1, 0, 0, 2)  -- Çizgi boyutunu ayarlamak için kullanılabilir
-    line.Position = UDim2.new(0, 0, 0.5, 0)
-    line.BackgroundColor3 = Color3.new(1, 1, 0)  -- Çizgi rengini ayarlamak için kullanılabilir
+    line.Name = "PlayerLine"
+    line.BackgroundColor3 = lineColor
+    line.BorderSizePixel = 0
+    line.Size = UDim2.new(0, 50, 0, 50) -- Çizgi boyutunu istediğiniz gibi ayarlayabilirsiniz
+    line.Parent = player.PlayerGui -- Çizgiyi PlayerGui'ye ekleyin
 
-    line.Parent = frame
-    frame.Parent = playerIndicator
-    playerIndicator.Parent = player.Character:WaitForChild("Head")
-
-    -- BillboardGui'nin güncellenmesi
-    local function updateIndicator()
-        if player and player.Character and player.Character:FindFirstChild("Head") then
-            local headPosition = player.Character.Head.Position
-            local screenPosition, onScreen = workspace.CurrentCamera:WorldToScreenPoint(headPosition)
-            
-            if onScreen then
-                playerIndicator.Adornee = nil
-                playerIndicator.Enabled = true
-                playerIndicator.Position = UDim2.new(0, screenPosition.X, 0, screenPosition.Y)
-            else
-                playerIndicator.Adornee = player.Character.Head
-                playerIndicator.Enabled = false
-            end
+    -- Çizgiyi güncelleme fonksiyonu
+    local function updateLine()
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local position = workspace.CurrentCamera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
+            line.Position = UDim2.new(0, position.X, 0, position.Y)
         else
-            playerIndicator:Destroy()
+            line:Destroy()
         end
     end
 
-    -- Güncelleme işlevini başlatma
-    updateIndicator()
-    player.CharacterAdded:Connect(updateIndicator)
+    -- Oyuncunun pozisyonunu güncelleme
+    player.CharacterAdded:Connect(function()
+        updateLine()
+    end)
+
     player.CharacterRemoving:Connect(function()
-        playerIndicator:Destroy()
+        line:Destroy()
+    end)
+
+    -- Her frame'de güncelleme
+    game:GetService("RunService").RenderStepped:Connect(function()
+        updateLine()
     end)
 end
 
--- Tüm oyuncular için PlayerAdded olayına bağlanma
+-- Tüm oyuncular için çizgileri oluştur
+for _, player in pairs(game.Players:GetPlayers()) do
+    createLine(player)
+end
+
+-- Oyuncu eklediğinde yeni çizgi oluştur
 game.Players.PlayerAdded:Connect(function(player)
-    createPlayerIndicator(player)
+    createLine(player)
 end)
