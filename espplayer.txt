@@ -14,16 +14,16 @@ local function highlightPlayers()
             if character then
                 local humanoid = character:FindFirstChildOfClass("Humanoid")
                 if humanoid then
-                    local highlight = Instance.new("BoxHandleAdornment")
-                    highlight.Size = character:GetExtentsSize() + highlightSize
-                    highlight.Color3 = highlightColor
-                    highlight.Transparency = 0.5
-                    highlight.Adornee = character
-                    highlight.Parent = character
-
-                    humanoid.Died:Connect(function()
-                        highlight:Destroy()
-                    end)
+                    local highlight = character:FindFirstChild("PlayerHighlight")
+                    if not highlight then
+                        highlight = Instance.new("BoxHandleAdornment")
+                        highlight.Name = "PlayerHighlight"
+                        highlight.Size = character:GetExtentsSize() + highlightSize
+                        highlight.Color3 = highlightColor
+                        highlight.Transparency = 0.5
+                        highlight.Adornee = character
+                        highlight.Parent = character
+                    end
                 end
             end
         end
@@ -43,10 +43,9 @@ end)
 Players.PlayerRemoving:Connect(function(player)
     local character = player.Character
     if character then
-        for _, descendant in pairs(character:GetDescendants()) do
-            if descendant:IsA("BoxHandleAdornment") then
-                descendant:Destroy()
-            end
+        local highlight = character:FindFirstChild("PlayerHighlight")
+        if highlight then
+            highlight:Destroy()
         end
     end
 end)
