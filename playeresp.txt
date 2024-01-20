@@ -1,0 +1,49 @@
+-- Player ESP
+local player = game.Players.LocalPlayer
+local camera = game.Workspace.CurrentCamera
+
+local function createESP(player)
+    local espBox = Drawing.new("Square")
+    espBox.Visible = false
+    espBox.Color = Color3.fromRGB(255, 255, 255)
+    espBox.Thickness = 2
+    espBox.Transparency = 1
+    espBox.Filled = false
+
+    local function updateESP()
+        local char = player.Character
+        if char and char:FindFirstChild("Humanoid") and char:FindFirstChild("HumanoidRootPart") then
+            local pos, onScreen = camera:WorldToViewportPoint(char.HumanoidRootPart.Position)
+            if onScreen then
+                local size = char.HumanoidRootPart.Size.Y * 3
+                espBox.Size = Vector2.new(size, size)
+                espBox.Position = Vector2.new(pos.X - size/2, pos.Y - size/2)
+                espBox.Visible = true
+            else
+                espBox.Visible = false
+            end
+        else
+            espBox.Visible = false
+        end
+    end
+
+    player.CharacterAdded:Connect(function()
+        updateESP()
+    end)
+
+    player.CharacterRemoving:Connect(function()
+        espBox.Visible = false
+    end)
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        updateESP()
+    end)
+end
+
+for _, player in ipairs(game.Players:GetPlayers()) do
+    createESP(player)
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    createESP(player)
+end)
