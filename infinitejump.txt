@@ -1,0 +1,7 @@
+-- Infinite Jump
+game:GetService("UserInputService").JumpRequest:Connect(function()
+    local player = game.Players.LocalPlayer
+    if player.Character and player.Character:FindFirstChild("Humanoid") then
+        player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+    end
+end)
