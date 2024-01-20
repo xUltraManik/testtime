@@ -15,6 +15,10 @@ local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
     local Main = Window:NewTab("Hack")
     local MainSection = Main:NewSection("Hack")
 
+    MainSection:NewButton("Infinite Jump", "-", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/infinitejump.txt', true))()
+    end)
+
     MainSection:NewButton("Click delete", "-", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/clickdelete.txt', true))()
     end)
