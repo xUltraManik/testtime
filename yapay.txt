@@ -1,0 +1,126 @@
+-- GUI'yi oluşturacak olan LocalScript
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Parent = player.PlayerGui
+
+-- Arama kutusu oluştur
+local searchBar = Instance.new("TextBox")
+searchBar.Size = UDim2.new(0, 200, 0, 30)
+searchBar.Position = UDim2.new(0, 10, 0, 10)
+searchBar.PlaceholderText = "Arama..."
+searchBar.Parent = gui
+
+-- ScrollingFrame oluştur
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(0, 220, 0, 360)
+scrollingFrame.Position = UDim2.new(0, 10, 0, 50)
+scrollingFrame.ScrollBarThickness = 10
+scrollingFrame.Parent = gui
+
+-- Butonların metinlerini ve bağlı olacakları local script'lerin listesi
+local buttons = {
+	{text = "Tıkla Sil (CTRL+Click)", script = function()
+		local mouse = game.Players.LocalPlayer:GetMouse()
+
+		mouse.Button1Down:Connect(function()
+			if mouse.Target and game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then
+				mouse.Target:Destroy()
+			end
+		end)
+
+	end},
+	{text = "Tıkla Yürü", script = function()
+		game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
+			if gameProcessedEvent then
+				return
+			end
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				local character = game.Players.LocalPlayer.Character
+				local humanoid = character:FindFirstChildOfClass("Humanoid")
+				if humanoid then
+					humanoid:MoveTo(game:GetService("Players").LocalPlayer:GetMouse().Hit.p)
+				end
+			end
+		end)
+
+	end},
+	{text = "Yakınlaştır (C ile)", script = function()
+		local camera = game.Workspace.CurrentCamera
+		local zoomed = false
+		local zoomLevel = 2
+
+		local function zoom()
+			zoomed = not zoomed
+
+			if zoomed then
+				camera.FieldOfView = camera.FieldOfView / zoomLevel
+			else
+				camera.FieldOfView = camera.FieldOfView * zoomLevel
+			end
+		end
+
+		local userInput = game:GetService("UserInputService")
+		local inputConnection
+		userInput.InputBegan:Connect(function(input)
+			if input.KeyCode == Enum.KeyCode.C then
+				zoom()
+				inputConnection = userInput.InputEnded:Connect(function(input2)
+					if input2.KeyCode == Enum.KeyCode.C then
+						zoom()
+						inputConnection:Disconnect()
+					end
+				end)
+			end
+		end)
+	end},
+	{text = "Sonsuz Zıplama", script = function()
+		game:GetService("UserInputService").JumpRequest:Connect(function()
+			local player = game.Players.LocalPlayer
+			if player.Character and player.Character:FindFirstChild("Humanoid") then
+				player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+			end
+		end)
+	end},
+}
+
+-- Butonları oluştur
+local buttonHeight = 50
+local buttonSpacing = 10
+local totalHeight = (#buttons * (buttonHeight + buttonSpacing)) - buttonSpacing
+local currentY = 0
+
+local function updateButtons(filter)
+	local matchedButtons = {}
+	for _, buttonInfo in ipairs(buttons) do
+		local button = scrollingFrame:FindFirstChild(buttonInfo.text)
+		if button then
+			button.Visible = string.find(string.lower(buttonInfo.text), string.lower(filter)) ~= nil
+			if button.Visible then
+				table.insert(matchedButtons, button)
+			end
+		end
+	end
+
+	for i, button in ipairs(matchedButtons) do
+		button.Position = UDim2.new(0, 10, 0, (i - 1) * (buttonHeight + buttonSpacing))
+	end
+end
+
+searchBar:GetPropertyChangedSignal("Text"):Connect(function()
+	updateButtons(searchBar.Text)
+end)
+
+for _, buttonInfo in ipairs(buttons) do
+	local button = Instance.new("TextButton")
+	button.Name = buttonInfo.text
+	button.Size = UDim2.new(0, 200, 0, buttonHeight)
+	button.Position = UDim2.new(0, 10, 0, currentY)
+	button.Text = buttonInfo.text
+	button.Parent = scrollingFrame
+
+	button.MouseButton1Click:Connect(function()
+		buttonInfo.script()
+	end)
+
+	currentY = currentY + buttonHeight + buttonSpacing
+end
