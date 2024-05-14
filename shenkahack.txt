@@ -26,3 +26,7 @@ local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
     MainSection:NewButton("Teleport to Player", "-", function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/teleporttoplayer.txt', true))()
     end)
+
+    MainSection:NewButton("Speed", "-", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/speed.txt', true))()
+    end)
