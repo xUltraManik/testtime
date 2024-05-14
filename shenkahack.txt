@@ -28,5 +28,5 @@ local Window = Library.CreateLib("YouTube Example Hub", "Ocean")
     end)
 
     MainSection:NewButton("Speed", "-", function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/speed.txt', true))()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xUltraManik/testtime/main/speedclassic.txt', true))()
     end)
