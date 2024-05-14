@@ -1,0 +1,49 @@
+-- GUI'nin eklenmesi
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Parent = player.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.BorderSizePixel = 2
+frame.Active = true -- Sürükleme için gerekli
+frame.Draggable = true -- Sürükleme için gerekli
+frame.Parent = gui
+
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, 0, 0.5, 0)
+label.Position = UDim2.new(0, 0, 0, 0)
+label.BackgroundTransparency = 1
+label.Text = "Hizi Girin:" -- "Hizi Girin" olarak değiştirildi
+label.TextColor3 = Color3.fromRGB(0, 0, 0)
+label.TextSize = 20
+label.Parent = frame
+
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(1, -20, 0.5, 0)
+textBox.Position = UDim2.new(0, 10, 0.5, 0)
+textBox.BackgroundTransparency = 0.5
+textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+textBox.BorderSizePixel = 2
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+textBox.TextSize = 20
+textBox.Parent = frame
+
+-- Hızın ayarlanması ve karakterin hareketi
+local function setSpeed()
+    local speed = tonumber(textBox.Text)
+    if speed then
+        player.Character.Humanoid.WalkSpeed = speed
+    end
+end
+
+textBox.FocusLost:Connect(setSpeed)
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Return then
+        setSpeed()
+    end
+end)
